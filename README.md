@@ -1,5 +1,5 @@
 # LibRerand Beta Test
-Platform: x86_64
+Platform: x86_64 \
 OS: Ubuntu 18.04
 
 ## Quick test Ubuntu 18.04
