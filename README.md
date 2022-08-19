@@ -3,7 +3,7 @@ Platform: x86_64
 OS: Ubuntu 18.04
 
 ## Quick test Ubuntu 18.04
-1. Paste link in browser to download librerand deb file: 
+1. Download librerand deb file: wget https://github.com/armscyber/Beta/releases/download/v0.92/librerand_0.92.deb
 2. Run command to install librerand: sudo dpkg -i librerand_0.92.deb 
 3. Set environment variables: export RERAND=2; export LD_BIND_NOW=1 
 4. Run sample application compiled with librerand: sample-target 
