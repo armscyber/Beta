@@ -19,9 +19,7 @@ ldd /usr/lib/x86_64-linux-gnu/libRerand*
 Use example container, configure rerand, start redis-server with libRerand. Then, run redis-benchmark against redis-server to ensure libRerand does not break redis-server. Finally, print out the libRerand log to check the timestamps of the randomizations.
 
 ```
-docker run -it armscyberdefense/integ_bionic:1.0 /bin/bash
-curl -s https://packagecloud.io/install/repositories/ACD/librerand/script.deb.sh | bash
-apt-get install librerand
+docker run -it armscyberdefense/integ_bionic:1.1 /bin/bash
 export RERAND=2; export LD_BIND_NOW=1
 LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libRerand.so redis-server &
 redis-benchmark
@@ -34,9 +32,7 @@ cat /tmp/Logs/$libRerand_log
 Use example container, configure rerand, start redis-server with libRerand. Then, at runtime, turn off rerandomization, and verify. Finally, turn back on rerandomization but with new period, and verify.
 
 ```
-docker run -it armscyberdefense/integ_bionic:1.0 /bin/bash
-curl -s https://packagecloud.io/install/repositories/ACD/librerand/script.deb.sh | bash
-apt-get install librerand
+docker run -it armscyberdefense/integ_bionic:1.1 /bin/bash
 export RERAND=2; export LD_BIND_NOW=1
 LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libRerand.so redis-server &
 
