@@ -27,8 +27,37 @@ LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libRerand.so redis-server &
 redis-benchmark
 redis_pid=$(ps -ef | awk '/[r]edis/{print $2}')
 libRerand_log=$(ls /tmp/Logs | grep $redis_pid)
-cat $libRerand_log
+cat /tmp/Logs/$libRerand_log
 ```
+
+### Reconfiguration live demo
+Use example container, configure rerand, start redis-server with libRerand. Then, at runtime, turn off rerandomization, and verify. Finally, turn back on rerandomization but with new period, and verify.
+
+```
+docker run -it armscyberdefense/integ_bionic:1.0 /bin/bash
+curl -s https://packagecloud.io/install/repositories/ACD/librerand/script.deb.sh | bash
+apt-get install librerand
+export RERAND=2; export LD_BIND_NOW=1
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libRerand.so redis-server &
+
+#wait 30 seconds, timestamps should be 10 seconds (default) apart
+redis_pid=$(ps -ef | awk '/[r]edis/{print $2}')
+libRerand_log=$(ls /tmp/Logs | grep $redis_pid)
+cat /tmp/Logs/$libRerand_log
+
+#turn off rerandomization
+echo "-1" > /home/.phalanx_config
+cat /tmp/Logs/$libRerand_log
+#wait 30 seconds, logs should not have changed
+cat /tmp/Logs/$libRerand_log
+
+#turn back on rerandomization, with 4 second period
+echo "4" > /home/.phalanx_config
+#wait 60 seconds, newest logs should be 4 seconds apart
+cat /tmp/Logs/$libRerand_log
+```
+
+---------------------------------------------------------------------------------------------------------------------------
 
 ## Quick test Ubuntu 18.04
 1. Add install source: ```curl -s https://packagecloud.io/install/repositories/ACD/librerand/script.deb.sh | sudo bash```
