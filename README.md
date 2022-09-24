@@ -46,13 +46,13 @@ libRerand_log=$(ls /tmp/Logs | grep $redis_pid)
 cat /tmp/Logs/$libRerand_log
 
 #turn off rerandomization
-echo "-1" > /home/.phalanx_config
+echo "-1" > /home/.phalanx_conf
 cat /tmp/Logs/$libRerand_log
 #wait 30 seconds, logs should not have changed
 cat /tmp/Logs/$libRerand_log
 
 #turn back on rerandomization, with 4 second period
-echo "4" > /home/.phalanx_config
+echo "4" > /home/.phalanx_conf
 #wait 60 seconds, newest logs should be 4 seconds apart
 cat /tmp/Logs/$libRerand_log
 ```
